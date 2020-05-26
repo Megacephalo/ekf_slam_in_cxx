@@ -5,7 +5,7 @@ This is my implementation of EKF SLAM and is greatly inspired by [this repo](htt
 
 # How do you turn this on?
 
-# Contributino
+# Contribution
 Of course you may laugh at my code and fork it to make it better, that would be totally appreciated, but I challenge you to cite my work because there is no Bibtex citation to be copy-pasted either. LOL
 
 # Author

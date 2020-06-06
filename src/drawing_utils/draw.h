@@ -8,6 +8,7 @@
 
 #include "feature_importer.h"
 #include "measurements_importer.h"
+#include "sensor_records.h"
 #include "chisquare.h"
 #include "matplotlibcpp.h"
 namespace plt = matplotlibcpp;
@@ -30,7 +31,7 @@ class Draw {
 				   , const Eigen::MatrixXd& sigma
 				   , const Feature_Importer& mapper
 				   , const std::vector<bool>&observedLandmarks
-				   , std::vector<Observation_model>& Z) ;
+				   , const observations& Z) ;
 	void Pause() ;
 	void Clear() ;
 	void Show() ;

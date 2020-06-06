@@ -91,9 +91,9 @@ Draw::Plot_state( const Eigen::VectorXd& mu
  				 , const Eigen::MatrixXd& sigma
  				 , const Feature_Importer& mapper
  				 , const std::vector<bool>& observedLandmarks
- 				 , std::vector<Observation_model>& Z) 
+ 				 , const observations& Z) 
 {
-	
+
 	//initia rob pos and landmarks
 	Eigen::VectorXd rob = Eigen::VectorXd(3);
 	rob << mu(0), mu(1), mu(2);
@@ -114,13 +114,13 @@ Draw::Plot_state( const Eigen::VectorXd& mu
 		    Drawprobellipse(m, sig, 0.6, "b");
 		}
 	}
-	
+
 	//draw observation lines
 	for(int i= 0; i < Z.size(); i++) {
 		std::vector<float> X, Y;
 		X.push_back(mu(0)) ; Y.push_back(mu(1)) ;
-		X.push_back(mu(2 * Z[i].id() + 1)) ;
-		Y.push_back(mu(2 * Z[i].id() + 2)) ;
+		X.push_back(mu(2 * Z[i]->id() + 1)) ;
+		Y.push_back(mu(2 * Z[i]->id() + 2)) ;
 		plt::plot(X, Y, "k") ;
 	}   
 

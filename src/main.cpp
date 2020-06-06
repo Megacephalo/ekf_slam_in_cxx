@@ -1,11 +1,14 @@
 #include <iostream>
 #include <string>
+#include <memory>  /* unique_ptr */
 #include <sstream> /* stringstream */
 #include <iomanip> /* setw, setfill */
 
 #include "draw.h"
 #include "measurements_importer.h"
 #include "feature_importer.h"
+#include "filter_base.h"
+#include "ekf.h"
 
 /* Function prototype */
 void check_arguments(int argc, char** argv) ;
@@ -33,15 +36,25 @@ int main(int argc, char** argv) {
 
 	Draw drawer ;
 
-	// TODO EKF SLAM
+	std::unique_ptr<Filter_base> ekf_slam(new EKF) ;
+	ekf_slam->initialize(featImporter.landmarks(), 3) ;
 
 	state_set raw_states = measImporter.get_states() ;
-	for (int i = 0 ; i < measImporter.state_size() ; i++) {
-		state_set::const_iterator it = raw_states.begin() + i ;
+
+	state_set::const_iterator it ;
+	for (it = raw_states.begin() ; it != raw_states.end() ; it++) {
+		Sensor_Records record = *it ;
 
 		drawer.Clear() ;
+		ekf_slam->execute(record) ;
+		drawer.Plot_state( ekf_slam->getMean()
+						 , ekf_slam->getCovariance()
+						 , featImporter
+						 , ekf_slam->get_observed_landmarks()
+						 , record.getState().second ) ;
 		drawer.Pause() ;
-		std::stringstream ss ;
+
+		// std::stringstream ss ;
 		// ss << std::setfill('0') << std::setw(3) << i ;
 		// drawer.Save("../images/" + ss.str()) ;
 	}

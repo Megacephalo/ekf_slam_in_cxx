@@ -14,7 +14,7 @@ class Feature_Importer {
   public:
   	Feature_Importer() ;
   	void import_from (const std::string& fileName) ;
-  	std::vector<MapPoint> landmarks() const ;
+  	LandmarkSet landmarks() const ;
   	int landmark_size() const ;
   private:
   	std::vector<MapPoint> landmarks_ ;

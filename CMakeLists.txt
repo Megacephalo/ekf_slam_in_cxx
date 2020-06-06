@@ -14,6 +14,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(src)
 include_directories(src/drawing_utils)
+include_directories(src/filters)
+include_directories(src/math_utilities)
 
 # Import Eigen libraries
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
@@ -31,6 +33,14 @@ include_directories(${PYTHON_INCLUDE_DIR})
 
 
 # Libraries
+add_library(math_utilities
+	src/math_utilities/math_utilities.cpp
+)
+target_link_libraries(math_utilities
+	Eigen3::Eigen
+)
+
+set(Filter_bank src/filters)
 ## Kalman filter SLAM
 add_library(KalmanFilter_SLAM
 	src/observation_model.cpp
@@ -42,9 +52,12 @@ add_library(KalmanFilter_SLAM
 	src/measurements_importer.cpp
 	src/feature_importer.cpp
 
+	${Filter_bank}/odometry_motion_model.cpp
+	${Filter_bank}/ekf.cpp
 )
 target_link_libraries(KalmanFilter_SLAM
 	Eigen3::Eigen
+	math_utilities
 )
 
 ## Drawing utils library
@@ -175,4 +188,15 @@ target_link_libraries(test_drawer
 
 	Eigen3::Eigen
 	drawing_utils
+)
+
+# filters
+add_executable(test_filters
+	tests/test_filters.cpp
+)
+target_link_libraries(test_filters
+	${GTEST_LIBRARIES}
+	pthread # Required
+
+	KalmanFilter_SLAM
 )

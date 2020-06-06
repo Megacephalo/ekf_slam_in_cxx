@@ -22,5 +22,8 @@ if __name__=='__main__':
     # If all files exist, let's go through the normal procedure
     bin_dir = 'bin/'
     exe_name = bin_dir + 'EKF_SLAM_in_cxx'
-    os.system(exe_name + ' ' + sensor_dataset + ' ' + world_dataset)
+
+    cmd = exe_name + ' ' + sensor_dataset + ' ' + world_dataset
+    print('Sending command : {}'.format(cmd))
+    os.system(cmd)
     print('Done! ')

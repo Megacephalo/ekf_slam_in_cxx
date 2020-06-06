@@ -2,6 +2,10 @@
 #define _MAP_POINT_H_
 
 #include <ostream>
+#include <vector>
+
+struct MapPoint ;
+typedef std::vector<MapPoint> LandmarkSet ;
 
 struct MapPoint {
 	MapPoint()

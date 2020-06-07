@@ -9,6 +9,7 @@ if __name__=='__main__':
 
     dataset_dir = 'data/'
     sensor_dataset = dataset_dir + 'sensor_data.dat'
+    # sensor_dataset = dataset_dir + 'short_sensor_data.dat'
     world_dataset = dataset_dir + 'world.dat'
 
     if not sensor_dataset:

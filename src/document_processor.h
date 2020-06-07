@@ -13,6 +13,7 @@ class Document_processor {
   	bool fileExist(const std::string& fileName) ;
   	bool fileCanOpen(const std::string& fileName) ;
   	void print_vect(const std::vector<std::string>& in_vect) ;
+  	bool close(std::ifstream& file) ;
 
   	std::vector<std::string> split_string(const std::string& str, char delimiter = ' ') ;
 } ; /* End of class */

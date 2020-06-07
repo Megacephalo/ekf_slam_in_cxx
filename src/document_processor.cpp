@@ -39,3 +39,12 @@ Document_processor::split_string(const std::string& str, char delimiter) {
 
 	return tokens ;
 } /* End of split_string */
+
+bool
+Document_processor::close(std::ifstream& file) {
+	if (file.is_open()) {
+		file.close() ;
+		return true ;
+	}
+	return false ;
+} /* End of close */

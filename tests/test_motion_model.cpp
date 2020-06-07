@@ -20,6 +20,14 @@ TEST(Motion_model_test, test_assign_arguments) {
 	ASSERT_EQ(odo->r2(), (float)0.01) ;
 }
 
+TEST(Motion_model_test, operator_overloading_test) {
+	std::unique_ptr<Motion_model> odo (new Wheel_odometry) ;
+	std::cout << odo << std::endl ;
+
+	std::shared_ptr<Motion_model> odo2 (new Wheel_odometry(-0.01, 1, 0.01)) ;
+	std::cout << odo2 << std::endl ;
+}
+
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv) ;
     return RUN_ALL_TESTS() ;

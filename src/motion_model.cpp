@@ -23,3 +23,15 @@ float
 Motion_model::r2() {
 	return r2_ ;
 } /* End of r1 */
+
+std::ostream&
+operator << (std::ostream& os, const std::unique_ptr<Motion_model>& motion) {
+	os << "Motion r1: " << std::left << std::setw(10) << motion->r1() << "t: " << std::left << std::setw(10) << motion->t()  << "r2: " << std::left << std::setw(10) << motion->r2() ;
+	return os ;
+} /* End of operator overloading */
+
+std::ostream&
+operator << (std::ostream& os, const std::shared_ptr<Motion_model>& motion) {
+	os << "Motion r1: " << std::left << std::setw(10) << motion->r1() << "t: " << std::left << std::setw(10) << motion->t()  << "r2: " << std::left << std::setw(10) << motion->r2() ;
+	return os ;
+}

@@ -22,6 +22,15 @@ struct MapPoint {
 inline std::ostream& operator << (std::ostream& out, const MapPoint& mapPoint) {
 	out << std::to_string(mapPoint.id) << ": (" + std::to_string(mapPoint.x) << ", " << std::to_string(mapPoint.y) << ")" ;
 	return out ;
-} /* End of operator << overloading */
+} /* End of operator << overloading for MapPoint */
+
+inline std::ostream& operator << (std::ostream& os, const std::vector<MapPoint>& landmarks) {
+	std::vector<MapPoint>::const_iterator it ;
+	for (it = landmarks.begin() ; it != landmarks.end() ; it++) {
+		os << *it << std::endl ;
+	}
+
+	return os ;
+} /* End of operator << overloading for vector of MapPoints */
 
 #endif /* _MAP_POINT_H_ */

@@ -25,3 +25,15 @@ float
 Observation_model::bearing() {
 	return bearing_ ;
 } /* End of bearing */
+
+std::ostream&
+operator << (std::ostream& os, const std::shared_ptr<Observation_model>& obs) {
+	os << "Observation ID: " << std::left << std::setw(15) << obs->id() << "range: " << std::left << std::setw(15) << obs->range() << "bearing: " << std::left << std::setw(15) << obs->bearing() ;
+	return os ;
+} /* End of operator << overloading */
+
+std::ostream&
+operator << (std::ostream& os, const std::unique_ptr<Observation_model>& obs) {
+	os << "Observation ID: " << std::left << std::setw(15) << obs->id() << "range: " << std::left << std::setw(15) << obs->range() << "bearing: " << std::left << std::setw(15) << obs->bearing() ;
+	return os ;
+} /* End of operator << overloading */

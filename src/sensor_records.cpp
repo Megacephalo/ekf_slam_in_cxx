@@ -44,3 +44,44 @@ Sensor_Records::getState() const {
 	std::pair<control, observations> state(odom_, scans_) ;
 	return state ;
 } /* End of getState */
+
+
+std::ostream& operator << (std::ostream& os, const Sensor_Records& record) {
+	control u = record.getState().first ;
+	observations observations = record.getState().second ;  // a vector of observation models
+	
+	os << "--------------------------" << std::endl ;
+	os << "Record:\n" ;
+	os << u << std::endl ;
+
+	if (observations.empty()) {
+		os << "No registered observation" << std::endl ;
+	}
+	else {
+		observations::const_iterator it ;
+		for (it = observations.begin() ; it != observations.end() ; it++) {
+			os << *it << std::endl ;
+		}
+	}
+	os << "--------------------------" << std::endl ;
+
+	return os ;
+} /* End of operator << overloading for Sensor_Records */
+
+std::ostream& operator << (std::ostream& os, const state_set& states) {
+	state_set::const_iterator it ;
+	for (it = states.begin() ; it != states.end() ; it++) {
+		os << *it << std::endl ;
+	}
+
+	return os ;
+} /* End of operator << overloading for state_set */
+
+std::ostream& operator << (std::ostream& os, const observations& obs) {
+	observations::const_iterator it ;
+	for (it = obs.begin() ; it != obs.end() ; it++) {
+		os << *it << std::endl ; 
+	}
+
+	return os ;
+} /* End of operator << overloading for observations */

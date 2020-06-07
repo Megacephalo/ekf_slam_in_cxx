@@ -9,12 +9,28 @@ Math_utilities::normalize_bearing(Eigen::VectorXd& Z) {
 
 float
 Math_utilities::normalize_angle(float phi) {
-	while(phi < M_PI) {
-		phi -= 2 * M_PI ;
-	}
-
-	while(phi < M_PI) {
+	phi = fmod(phi + M_PI, 2 * M_PI) ;
+	if (phi < 0) {
 		phi += 2 * M_PI ;
 	}
 	return phi ;
 } /* End of normalize_angle */
+
+float
+Math_utilities::normalize_angle_to_2pi(float phi) {
+	phi = fmod( phi, 2 * M_PI ) ;
+	if (phi < 0) {
+		phi += 2 * M_PI ;
+	}
+	return phi ;
+}
+
+float
+Math_utilities::deg2rad(float deg) {
+	return ( deg * M_PI / 180. ) ;
+} /* End of deg2rad */
+
+float
+Math_utilities::rad2deg(float rad) {
+	return ( rad * 180. / M_PI ) ;
+} /* End of rad2deg */

@@ -17,7 +17,7 @@ class Feature_Importer {
   	LandmarkSet landmarks() const ;
   	int landmark_size() const ;
   private:
-  	std::vector<MapPoint> landmarks_ ;
+  	LandmarkSet landmarks_ ;
   	std::unique_ptr<Document_processor> dproc_ ;
 } ; /* End of class */
 

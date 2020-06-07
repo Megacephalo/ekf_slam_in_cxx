@@ -15,6 +15,13 @@ TEST(Feature_importer_test, test_import_from) {
 	ASSERT_EQ( landmarks.size(), 9 ) ;
 }
 
+TEST(Feature_importer_test, print_landmarks_test) {
+	std::string fileName = "../data/world.dat" ;
+	Feature_Importer importer ;
+	importer.import_from(fileName) ;
+	std::cout << importer.landmarks() << std::endl ;
+}
+
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv) ;
     return RUN_ALL_TESTS() ;

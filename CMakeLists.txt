@@ -33,6 +33,7 @@ include_directories(${PYTHON_INCLUDE_DIR})
 
 
 # Libraries
+## Math utilities
 add_library(math_utilities
 	src/math_utilities/math_utilities.cpp
 )
@@ -199,4 +200,15 @@ target_link_libraries(test_filters
 	pthread # Required
 
 	KalmanFilter_SLAM
+)
+
+# Math utilities
+add_executable(test_math_utilities
+	tests/test_math_utilities.cpp
+)
+target_link_libraries(test_math_utilities
+	${GTEST_LIBRARIES}
+	pthread # Required
+
+	math_utilities
 )

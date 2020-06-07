@@ -32,7 +32,7 @@ class Draw {
 				   , const Feature_Importer& mapper
 				   , const std::vector<bool>&observedLandmarks
 				   , const observations& Z) ;
-	void Pause() ;
+	void Pause(float seconds = 0.01) ;
 	void Clear() ;
 	void Show() ;
 	void Save(std::string path) ;

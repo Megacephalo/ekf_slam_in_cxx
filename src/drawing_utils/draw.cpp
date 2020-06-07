@@ -129,8 +129,8 @@ Draw::Plot_state( const Eigen::VectorXd& mu
 } /* End of Plot_state */
 
 void
-Draw::Pause() {
-	plt::pause(0.01);
+Draw::Pause(float seconds) {
+	plt::pause(seconds);
 } /* End of Pause */
 
 void

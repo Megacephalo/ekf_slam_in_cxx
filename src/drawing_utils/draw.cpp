@@ -84,6 +84,13 @@ Draw::Draw() {
 	o_settings["marker"] = "o";
 	o_settings["markersize"] = "10";
 	o_settings["linewidth"] = "5";
+
+	// trajectory setting
+	// traj_settings["color"] = "magenta";
+	// traj_settings["linestyle"] = "--";
+	// traj_settings["marker"] = "o";
+	traj_settings["markersize"] = "3";
+	traj_settings["linewidth"] = "2";
  } /* End of constructor */
  
 void
@@ -127,6 +134,34 @@ Draw::Plot_state( const Eigen::VectorXd& mu
 	//drawrobot(mu(1:3), 'r', 3, 0.3, 0.3);
 	Drawellipse(rob, 0.15, 0.15, "r");
 } /* End of Plot_state */
+
+void
+Draw::draw_trajectory(const std::vector<Eigen::VectorXd>& path, const std::string& color) {
+	traj_settings["color"] = color ;
+
+	std::vector<float> X, Y ;
+	std::vector<Eigen::VectorXd>::const_iterator it ;
+	for (it = path.begin() ; it != path.end() ; it++) {
+		Eigen::VectorXd est_pose = *it ;
+		float x = est_pose(0) ;
+		float y = est_pose(1) ;
+
+		X.push_back(x) ;
+		Y.push_back(y) ;
+	}
+
+	plt::plot(X, Y, traj_settings) ;
+} /* End of draw_trajectory */
+
+void
+Draw::draw_trajectory( const std::vector<float>& X
+					 , const std::vector<float>& Y
+					 , const std::string& color) {
+	traj_settings["color"] = color ;
+
+	// plt::plot(X, Y, traj_settings) ;
+	plt::plot(X, Y, l_settings) ;
+} /* End of draw_trajectory */
 
 void
 Draw::Pause(float seconds) {

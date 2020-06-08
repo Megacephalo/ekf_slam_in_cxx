@@ -5,6 +5,7 @@
 #include <Eigen/Dense>
 #include <cassert>
 #include <math.h>
+#include <vector>
 
 #include "feature_importer.h"
 #include "measurements_importer.h"
@@ -17,6 +18,7 @@ class Draw {
   private:
 	std::map<std::string, std::string> l_settings;
 	std::map<std::string, std::string> o_settings;
+	std::map<std::string, std::string> traj_settings ;
 
 	void Drawellipse(const Eigen::VectorXd& X, float a, float b, std::string color) ;
 	void Drawprobellipse( Eigen::VectorXd x
@@ -32,6 +34,8 @@ class Draw {
 				   , const Feature_Importer& mapper
 				   , const std::vector<bool>&observedLandmarks
 				   , const observations& Z) ;
+	void draw_trajectory(const std::vector<Eigen::VectorXd>& path, const std::string& color = "magenta") ;
+	void draw_trajectory(const std::vector<float>& X, const std::vector<float>& Y, const std::string& color = "magenta") ;
 	void Pause(float seconds = 0.01) ;
 	void Clear() ;
 	void Show() ;

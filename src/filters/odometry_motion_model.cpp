@@ -29,14 +29,14 @@ Odometry_Motion_Model::setState(const Eigen::VectorXd& state) {
 } /* End of setState */
 
 void
-Odometry_Motion_Model::setState(const double r1, const double& t, const double& r2) {
+Odometry_Motion_Model::setState(const Eigen::VectorXd& prev_state, const double r1, const double& t, const double& r2) {
 	double angle = state_(2) ;  // NOTE! The angle unit is radian instead of degree !!
 	float c = std::cos(angle + r1) ;
 	float s = std::sin(angle + r1) ;
 
-	state_(0) += t * c ;
-	state_(1) += t * s ;
-	state_(2) += r1 + r2 ;
+	state_(0) = prev_state(0) + t * c ;
+	state_(1) = prev_state(1) + t * s ;
+	state_(2) = prev_state(2)+ r1 + r2 ;
 } /* End of setState */
 
 Eigen::VectorXd
@@ -51,5 +51,10 @@ Odometry_Motion_Model::getCovariance() const {
 
 void
 Odometry_Motion_Model::setCovariance(const Eigen::MatrixXd& sigma) {
-	Covariance_ = sigma + gauss_noise_ ;
+	Covariance_ = sigma ;
 } /* End of setCovariance */
+
+Eigen::MatrixXd
+Odometry_Motion_Model::getMotionNoise() const {
+	return gauss_noise_ ;
+} /* End of getMotionNoise */

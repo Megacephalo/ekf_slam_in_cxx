@@ -20,7 +20,7 @@ class EKF : public Filter_base {
   private:
   	std::unique_ptr<Odometry_Motion_Model> wheel_odom_ ;
   	std::vector<bool> are_observed_landmarks_ ;
-  	Eigen::VectorXd state_ ;
+  	Eigen::VectorXd mean_ ;
   	Eigen::MatrixXd covariance_ ;
   	Math_utilities math_ ;
 

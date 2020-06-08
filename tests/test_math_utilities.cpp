@@ -26,6 +26,14 @@ TEST_F(math_utilities_test, rad2deg_test) {
 	ASSERT_EQ(math_.rad2deg((float)9.42477796), 540) ;
 }
 
+TEST_F(math_utilities_test, normalize_angle_test) {
+	ASSERT_EQ((int)math_.normalize_angle(7.85398163), (int)(M_PI / 2) ) ;
+	ASSERT_EQ((int)math_.normalize_angle(-7.85398163), -(int)(M_PI / 2) ) ;
+	// ASSERT_EQ(math_.normalize_angle(), ) ;
+	// ASSERT_EQ(math_.normalize_angle(), ) ;
+	// ASSERT_EQ(math_.normalize_angle(), ) ;
+}
+
 TEST_F(math_utilities_test, normalize_angle_to_2pi_test) {
 	ASSERT_EQ(math_.normalize_angle_to_2pi((float)9.42477796), (float)M_PI) ;
 	ASSERT_EQ(math_.normalize_angle_to_2pi((float)14.1371669), (float)(M_PI / 2)) ;

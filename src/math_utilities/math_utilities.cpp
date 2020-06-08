@@ -9,10 +9,13 @@ Math_utilities::normalize_bearing(Eigen::VectorXd& Z) {
 
 float
 Math_utilities::normalize_angle(float phi) {
-	phi = fmod(phi + M_PI, 2 * M_PI) ;
-	if (phi < 0) {
+	while(phi <= -M_PI) {
 		phi += 2 * M_PI ;
 	}
+	while(phi > M_PI) {
+		phi -= 2 * M_PI ;
+	}
+
 	return phi ;
 } /* End of normalize_angle */
 

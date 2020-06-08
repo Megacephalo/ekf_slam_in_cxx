@@ -23,7 +23,8 @@ int main(int argc, char** argv) {
 		std::cerr << err_msg << std::endl ;
 		return -1 ;
 	}
-	
+
+
 	std::string observation_dataset = argv[1] ;
 	std::string world_dataset = argv[2] ;
 
@@ -32,7 +33,6 @@ int main(int argc, char** argv) {
 
 	Feature_Importer featImporter ;
 	featImporter.import_from(world_dataset) ;
-	std::cout << "Imported " << featImporter.landmark_size() << " landmarks." << std::endl ;
 
 	Draw drawer ;
 
@@ -41,23 +41,37 @@ int main(int argc, char** argv) {
 
 	state_set raw_states = measImporter.get_states() ;
 
+	std::vector<Eigen::VectorXd> est_trajectory ;
+
 	state_set::const_iterator it ;
+	int i = 0 ;
 	for (it = raw_states.begin() ; it != raw_states.end() ; it++) {
 		Sensor_Records record = *it ;
 
-		drawer.Clear() ;
 		ekf_slam->execute(record) ;
+
+		drawer.Clear() ;
+
 		drawer.Plot_state( ekf_slam->getMean()
 						 , ekf_slam->getCovariance()
 						 , featImporter
 						 , ekf_slam->get_observed_landmarks()
 						 , record.getState().second ) ;
-		drawer.Pause() ;
 
-		// std::stringstream ss ;
-		// ss << std::setfill('0') << std::setw(3) << i ;
-		// drawer.Save("../images/" + ss.str()) ;
+		est_trajectory.push_back(ekf_slam->getMean()) ;
+		drawer.draw_trajectory(est_trajectory) ;
+
+		drawer.Pause(0.005) ;
+
+
+
+		std::stringstream ss ;
+		ss << std::setfill('0') << std::setw(3) << i ;
+		i++ ;
+		drawer.Save("images/" + ss.str()) ;
 	}
+	std::cout << "Done!" << std::endl ;
+
 	drawer.Show() ;
 
 	return 0 ;
